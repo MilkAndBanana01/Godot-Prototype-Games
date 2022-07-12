@@ -1,0 +1,215 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Player/Player.gd" type="Script" id=1]
+[ext_resource path="res://icon.png" type="Texture" id=2]
+[ext_resource path="res://Player/Pause.gd" type="Script" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 30, 32 )
+
+[sub_resource type="Theme" id=2]
+MarginContainer/constants/margin_bottom = 20
+MarginContainer/constants/margin_left = 20
+MarginContainer/constants/margin_right = 20
+MarginContainer/constants/margin_top = 20
+
+[node name="Player" type="KinematicBody2D"]
+collision_mask = 3
+script = ExtResource( 1 )
+gravity = 41
+speed = 650
+jump = 950
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+zoom = Vector2( 1.5, 1.5 )
+smoothing_enabled = true
+smoothing_speed = 1.861
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.25
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+enabled = true
+cast_to = Vector2( 34.252, 0 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="CollisionShape2D2"]
+self_modulate = Color( 1, 0.423529, 0, 1 )
+texture = ExtResource( 2 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+pause_mode = 2
+script = ExtResource( 3 )
+
+[node name="Pause" type="Control" parent="CanvasLayer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Pause"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.686275 )
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Pause"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Pause/MarginContainer"]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 1004.0
+margin_bottom = 580.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Pause/MarginContainer/VBoxContainer"]
+margin_right = 984.0
+margin_bottom = 26.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.33
+
+[node name="Control" type="Control" parent="CanvasLayer/Pause/MarginContainer/VBoxContainer/HBoxContainer"]
+margin_right = 21.0
+margin_bottom = 26.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="CanvasLayer/Pause/MarginContainer/VBoxContainer/HBoxContainer"]
+margin_left = 25.0
+margin_top = 6.0
+margin_right = 958.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 42.57
+text = "PAUSED"
+align = 1
+
+[node name="Button" type="Button" parent="CanvasLayer/Pause/MarginContainer/VBoxContainer/HBoxContainer"]
+margin_left = 962.0
+margin_right = 984.0
+margin_bottom = 26.0
+size_flags_horizontal = 3
+text = "x"
+
+[node name="Control2" type="Control" parent="CanvasLayer/Pause/MarginContainer/VBoxContainer"]
+margin_top = 30.0
+margin_right = 984.0
+margin_bottom = 111.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="CanvasLayer/Pause/MarginContainer/VBoxContainer"]
+margin_top = 115.0
+margin_right = 984.0
+margin_bottom = 407.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.63
+
+[node name="-" type="Control" parent="CanvasLayer/Pause/MarginContainer/VBoxContainer/HBoxContainer3"]
+margin_right = 118.0
+margin_bottom = 292.0
+size_flags_horizontal = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/Pause/MarginContainer/VBoxContainer/HBoxContainer3"]
+margin_left = 122.0
+margin_right = 861.0
+margin_bottom = 292.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 6.22
+alignment = 1
+
+[node name="level select" type="Button" parent="CanvasLayer/Pause/MarginContainer/VBoxContainer/HBoxContainer3/HBoxContainer2"]
+margin_right = 243.0
+margin_bottom = 292.0
+size_flags_horizontal = 3
+text = "LEVEL SELECT"
+
+[node name="resume" type="Button" parent="CanvasLayer/Pause/MarginContainer/VBoxContainer/HBoxContainer3/HBoxContainer2"]
+margin_left = 247.0
+margin_right = 491.0
+margin_bottom = 292.0
+size_flags_horizontal = 3
+text = "RESUME"
+
+[node name="achievements" type="Button" parent="CanvasLayer/Pause/MarginContainer/VBoxContainer/HBoxContainer3/HBoxContainer2"]
+margin_left = 495.0
+margin_right = 739.0
+margin_bottom = 292.0
+size_flags_horizontal = 3
+text = "ACHIEVEMENTS"
+
+[node name="-2" type="Control" parent="CanvasLayer/Pause/MarginContainer/VBoxContainer/HBoxContainer3"]
+margin_left = 865.0
+margin_right = 984.0
+margin_bottom = 292.0
+size_flags_horizontal = 3
+
+[node name="Control" type="Control" parent="CanvasLayer/Pause/MarginContainer/VBoxContainer"]
+margin_top = 411.0
+margin_right = 984.0
+margin_bottom = 492.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="CanvasLayer/Pause/MarginContainer/VBoxContainer"]
+margin_top = 496.0
+margin_right = 984.0
+margin_bottom = 560.0
+size_flags_horizontal = 3
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="CanvasLayer/Pause/MarginContainer/VBoxContainer/HBoxContainer5"]
+margin_right = 490.0
+margin_bottom = 64.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Pause/MarginContainer/VBoxContainer/HBoxContainer5/HBoxContainer3"]
+margin_right = 64.0
+margin_bottom = 64.0
+texture = ExtResource( 2 )
+
+[node name="HSlider" type="HSlider" parent="CanvasLayer/Pause/MarginContainer/VBoxContainer/HBoxContainer5/HBoxContainer3"]
+margin_left = 68.0
+margin_top = 24.0
+margin_right = 490.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="CanvasLayer/Pause/MarginContainer/VBoxContainer/HBoxContainer5"]
+margin_left = 494.0
+margin_right = 984.0
+margin_bottom = 64.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Pause/MarginContainer/VBoxContainer/HBoxContainer5/HBoxContainer4"]
+margin_right = 64.0
+margin_bottom = 64.0
+texture = ExtResource( 2 )
+
+[node name="HSlider" type="HSlider" parent="CanvasLayer/Pause/MarginContainer/VBoxContainer/HBoxContainer5/HBoxContainer4"]
+margin_left = 68.0
+margin_top = 24.0
+margin_right = 490.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
