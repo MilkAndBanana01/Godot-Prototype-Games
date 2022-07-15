@@ -1,11 +1,12 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
 [ext_resource path="res://Player/Pause.gd" type="Script" id=3]
+[ext_resource path="res://Player/sprite.png" type="Texture" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 30, 32 )
+extents = Vector2( 8, 7.5 )
 
 [sub_resource type="Theme" id=2]
 MarginContainer/constants/margin_bottom = 20
@@ -13,7 +14,52 @@ MarginContainer/constants/margin_left = 20
 MarginContainer/constants/margin_right = 20
 MarginContainer/constants/margin_top = 20
 
-[node name="Player" type="KinematicBody2D"]
+[sub_resource type="Animation" id=3]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "jump"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 0.749434, 1.56377 ), Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "side"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.7, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 0.704706, 1 ), Vector2( 1.63857, 1 ), Vector2( 1, 1 ) ]
+}
+
+[node name="Player" type="KinematicBody2D" groups=["player"]]
 collision_mask = 3
 script = ExtResource( 1 )
 gravity = 41
@@ -22,7 +68,7 @@ jump = 950
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
-zoom = Vector2( 1.5, 1.5 )
+zoom = Vector2( 0.4, 0.4 )
 smoothing_enabled = true
 smoothing_speed = 1.861
 
@@ -31,14 +77,14 @@ wait_time = 0.25
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 enabled = true
-cast_to = Vector2( 34.252, 0 )
+cast_to = Vector2( 9.548, 0 )
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -0.5 )
 shape = SubResource( 1 )
 
-[node name="Sprite" type="Sprite" parent="CollisionShape2D2"]
-self_modulate = Color( 1, 0.423529, 0, 1 )
-texture = ExtResource( 2 )
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 4 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 pause_mode = 2
@@ -211,5 +257,11 @@ margin_right = 490.0
 margin_bottom = 40.0
 size_flags_horizontal = 3
 size_flags_vertical = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+playback_speed = 5.0
+anims/RESET = SubResource( 3 )
+anims/jump = SubResource( 4 )
+anims/side = SubResource( 5 )
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

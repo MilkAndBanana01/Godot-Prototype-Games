@@ -10,20 +10,38 @@ export var jump := 20
 var jumpLimit := 1
 var direction : Vector2
 var movement : Vector2
+var snap : Vector2
+var upDirection : Vector2
 var spawned : bool = false
+var slippery := false
+var slow := false
 
 onready var pause = $CanvasLayer/Pause
+var tilemap
+onready var jumppad = preload("res://Tilemap/Instances/Jump.tscn")
 var world
 var level = 1
 
 func _ready() -> void:
+	upDirection = Vector2.UP
+	world = get_parent()
 	pause.visible = false
 	spawn = get_parent().get_node('spawn')
 	position = spawn.position
 	direction = Vector2.RIGHT
 	jumpCount = jumpLimit
+#	tilemap = world.get_node("tilemap")
+#	var tiles = tilemap.get_used_cells_by_id(4)
+#	for i in tiles:
+#		var t = jumppad.instance()
+#		world.call_deferred("add_child",t)
+#		yield(get_tree(),"idle_frame")
+#		t.global_position = i * tilemap.cell_size.x
+#		tilemap.set_cellv(i, -1)
+#		tilemap.update_dirty_quadrants()
 
 func respawn():
+	$Sprite.flip_h = false
 	movement = Vector2.ZERO
 	direction = Vector2.RIGHT
 	jumpCount = jumpLimit
@@ -31,7 +49,6 @@ func respawn():
 	spawn = get_parent().get_node("spawn").position
 	position = spawn
 	raycast.set_cast_to(Vector2(abs(raycast.cast_to.x),0))
-
 func win():
 	level = int(get_tree().root.get_child(0).name)
 	level += 1
@@ -46,23 +63,38 @@ func _physics_process(delta: float) -> void:
 			var tilePos = collision.collider.world_to_map(position)
 			tilePos -= collision.normal
 			var tileId = collision.collider.get_cellv(tilePos)
+			if tileId == 0:
+				slippery = false
+				slow = false
 			if tileId == 3:
 				win()
 			if tileId == 2:
 				respawn()
+			if tileId == 5:
+				slippery = true
+			if tileId == 6:
+				slow = true
+			if tileId == 7:
+#				$CollisionShape2D2/Sprite.rotate(deg2rad(180))
+				movement.y = -jump
+				gravity = -gravity
+				jump = -jump
+				upDirection = -upDirection
 
 	if not is_on_floor():
 		movement.y += gravity
 	else:
+		snap = -get_floor_normal()
 		if spawned:
 			spawned = false
+# if jump pad breaks, remove this line
 		movement.y = 0
 		jumpCount = 0
-		if Input.is_action_pressed("ui_left") or Input.is_action_pressed("ui_right"):
+		if (Input.is_action_pressed("ui_left") or Input.is_action_pressed("ui_right")) and not slow:
 			if not spawned:
 				movement.x = lerp(movement.x,direction.x * speed,15 * delta)
 		else:
-			movement.x = lerp(movement.x,0,delta)
+			movement.x = lerp(movement.x,0,delta * (5 * int(not slippery)))
 
 	if is_on_ceiling():
 		movement.y += gravity
@@ -77,15 +109,21 @@ func _physics_process(delta: float) -> void:
 			if tileId == 2:
 				respawn()
 			if tileId == 0:
+				$Sprite.flip_h = !$Sprite.flip_h
+				$AnimationPlayer.play("side")
 				raycast.set_cast_to(Vector2(-raycast.cast_to.x,0))
 				direction.x = -direction.x
 				movement.x = -movement.x
 
-
 	if (Input.is_action_just_pressed("ui_accept") or Input.is_action_just_pressed("ui_up")) and jumpCount < jumpLimit and not spawned:
+		$AnimationPlayer.play("jump")
+		snap = Vector2.ZERO
 		movement.y = -jump
 		jumpCount += 1
-	move_and_slide(movement,Vector2.UP)
+		if slow == true:
+			movement.x = direction.x * speed
+	move_and_slide_with_snap(movement,snap,upDirection)
 
-
-
+func jumpPad():
+	snap = Vector2.ZERO
+	movement.y = -jump
