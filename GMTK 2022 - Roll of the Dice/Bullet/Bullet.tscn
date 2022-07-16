@@ -13,15 +13,26 @@ script = ExtResource( 1 )
 rotation = 1.5708
 shape = SubResource( 2 )
 
-[node name="Sprite" type="Sprite" parent="CollisionShape2D"]
-scale = Vector2( 0.09375, 0.3125 )
-texture = ExtResource( 2 )
-
 [node name="RayCast2D" type="RayCast2D" parent="."]
 enabled = true
 cast_to = Vector2( 10.929, 0 )
+collide_with_areas = true
 
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
 scale = Vector2( 1, 0.3 )
+
+[node name="Sprites" type="Node2D" parent="."]
+
+[node name="Normal" type="Sprite" parent="Sprites"]
+rotation = 1.5708
+scale = Vector2( 0.09375, 0.3125 )
+texture = ExtResource( 2 )
+
+[node name="Enemy" type="Sprite" parent="Sprites"]
+visible = false
+modulate = Color( 1, 0, 0, 1 )
+rotation = 1.5708
+scale = Vector2( 0.09375, 0.3125 )
+texture = ExtResource( 2 )
 
 [connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]

@@ -1,0 +1,28 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Bullet/Bullet.tscn" type="PackedScene" id=1]
+
+[node name="Bullets" type="Node2D"]
+
+[node name="Bullet" parent="." instance=ExtResource( 1 )]
+
+[node name="Bullet2" parent="." instance=ExtResource( 1 )]
+rotation = -1.57079
+
+[node name="Bullet3" parent="." instance=ExtResource( 1 )]
+rotation = -3.14159
+
+[node name="Bullet4" parent="." instance=ExtResource( 1 )]
+rotation = -4.71238
+
+[node name="Bullet5" parent="." instance=ExtResource( 1 )]
+rotation = -0.785397
+
+[node name="Bullet6" parent="." instance=ExtResource( 1 )]
+rotation = -2.35619
+
+[node name="Bullet7" parent="." instance=ExtResource( 1 )]
+rotation = -3.92699
+
+[node name="Bullet8" parent="." instance=ExtResource( 1 )]
+rotation = -5.49778
