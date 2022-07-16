@@ -57,18 +57,22 @@ func win():
 	respawn()
 
 func _physics_process(delta: float) -> void:
+	
+	
+	
 	for i in get_slide_count():
 		var collision = get_slide_collision(i)
 		if collision.collider is TileMap:
 			var tilePos = collision.collider.world_to_map(position)
 			tilePos -= collision.normal
 			var tileId = collision.collider.get_cellv(tilePos)
+			print(tileId)
 			if tileId == 0:
 				slippery = false
 				slow = false
 			if tileId == 3:
 				win()
-			if tileId == 2:
+			if tileId == 3:
 				respawn()
 			if tileId == 5:
 				slippery = true
@@ -104,11 +108,11 @@ func _physics_process(delta: float) -> void:
 			var tilemap = raycast.get_collider()
 			var point = raycast.get_collision_point() + direction
 			var tileId = tilemap.get_cellv(tilemap.world_to_map(point))
-			if tileId == 3:
+			if tileId == 4:
 				win()
-			if tileId == 2:
+			if tileId == 3:
 				respawn()
-			if tileId == 0:
+			if tileId == 2:
 				$Sprite.flip_h = !$Sprite.flip_h
 				$AnimationPlayer.play("side")
 				raycast.set_cast_to(Vector2(-raycast.cast_to.x,0))
