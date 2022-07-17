@@ -5,12 +5,16 @@
 [node name="Bullets" type="Node2D"]
 
 [node name="Bullet" parent="." instance=ExtResource( 1 )]
+speed = 300
 
 [node name="Bullet2" parent="." instance=ExtResource( 1 )]
 rotation = -1.57079
+speed = 300
 
 [node name="Bullet3" parent="." instance=ExtResource( 1 )]
 rotation = -3.14159
+speed = 300
 
 [node name="Bullet4" parent="." instance=ExtResource( 1 )]
 rotation = -4.71238
+speed = 300

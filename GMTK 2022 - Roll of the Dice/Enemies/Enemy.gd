@@ -98,7 +98,18 @@ func _process(delta: float) -> void:
 				$Middle.rotation_degrees += 15 * rotating
 				b.transform = $Middle.global_transform
 		if health <= 0:
-			get_tree().root.get_node("World/Player").score += enemy * currentWave * 100
+			get_tree().root.get_node("World/Player").score += enemy * currentWave * 100 * get_tree().root.get_node("World/Player").multiplier
+			var rng = RandomNumberGenerator.new()
+			rng.randomize()
+			var random = rng.randi_range(0,20)
+			if random == 1:
+				var bullet = load("res://Pickups/Ammo.tscn").instance()
+				get_tree().root.get_node('World/Pickups').add_child(bullet)
+				bullet.global_position = global_position
+			elif random == 2:
+				var health = load("res://Pickups/Health.tscn").instance()
+				get_tree().root.get_node('World/Pickups').add_child(health)
+				health.global_position = global_position
 			queue_free()
 
 func _on_Area2D_body_entered(body: Node) -> void:
@@ -108,7 +119,7 @@ func _on_Area2D_body_entered(body: Node) -> void:
 		health -= 1
 		if body.health <= 0:
 			body.dead()
-		body.knockback(global_position)
+		body.knockback(global_position,300)
 
 func _on_Timer_timeout() -> void:
 	if enemy == 4 and get_tree().root.get_node("World/Player").playing:

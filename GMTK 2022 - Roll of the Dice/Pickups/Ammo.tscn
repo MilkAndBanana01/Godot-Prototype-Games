@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://icon.png" type="Texture" id=1]
+[ext_resource path="res://Pickups/Pickup.gd" type="Script" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 16, 32 )
+
+[node name="Ammo" type="Area2D" groups=["ammo"]]
+monitorable = false
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="CollisionShape2D"]
+modulate = Color( 0.898039, 1, 0, 1 )
+position = Vector2( 1, 0 )
+scale = Vector2( 0.53125, 1 )
+texture = ExtResource( 1 )
+
+[connection signal="body_entered" from="." to="." method="_on_Ammo_body_entered"]

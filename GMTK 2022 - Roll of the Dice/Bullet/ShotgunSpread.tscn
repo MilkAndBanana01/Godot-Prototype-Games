@@ -1,0 +1,38 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Bullet/Bullet.tscn" type="PackedScene" id=1]
+
+[node name="shotgun" type="Node2D"]
+
+[node name="Bullet" parent="." instance=ExtResource( 1 )]
+position = Vector2( 0, -7 )
+rotation = -0.0457182
+
+[node name="Bullet2" parent="." instance=ExtResource( 1 )]
+position = Vector2( 1, -9 )
+rotation = 0.169213
+
+[node name="Bullet3" parent="." instance=ExtResource( 1 )]
+position = Vector2( 0, -6 )
+rotation = 0.38137
+
+[node name="Bullet4" parent="." instance=ExtResource( 1 )]
+position = Vector2( -1, -4 )
+rotation = 0.177616
+
+[node name="Bullet5" parent="." instance=ExtResource( 1 )]
+rotation = -0.0479039
+
+[node name="Bullet6" parent="." instance=ExtResource( 1 )]
+rotation = -0.1783
+
+[node name="Bullet7" parent="." instance=ExtResource( 1 )]
+position = Vector2( 0, -2 )
+rotation = -0.265082
+
+[node name="Bullet8" parent="." instance=ExtResource( 1 )]
+position = Vector2( 0, 3 )
+rotation = -0.36951
+
+[node name="Bullet9" parent="." instance=ExtResource( 1 )]
+rotation = -0.536356
