@@ -1,19 +1,27 @@
 extends AudioStreamPlayer
 
+export (Array,AudioStream) var sfx 
+var musicEnable = true
+var sfxEnable = true
+
 func _process(delta: float) -> void:
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'),owner.get_node("CanvasLayer/Menu/Settings/VBoxContainer/Music/HSlider").value - 10)
 
 func _on_HSlider_value_changed(value: float) -> void:
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index('SFX'),value - 10)
-	stream = load("res://UI/button_press.mp3")
+	stream = sfx[0]
 	play()
 
 func _on_music_pressed() -> void:
-	if AudioServer.get_bus_volume_db(AudioServer.get_bus_index('Music'),owner.get_node("CanvasLayer/Menu/Settings/VBoxContainer/Music/HSlider").value - 10):
-		AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'),owner.get_node("CanvasLayer/Menu/Settings/VBoxContainer/Music/HSlider").value - 10)
+	musicEnable = !musicEnable
+	AudioServer.set_bus_mute(AudioServer.get_bus_index("Music"),!musicEnable)
+	owner.get_node("CanvasLayer/Menu/Settings/VBoxContainer/Music/HSlider").editable = musicEnable
 
 func _on_sfx_pressed() -> void:
-	pass # Replace with function body.
+	sfxEnable = !sfxEnable
+	AudioServer.set_bus_mute(AudioServer.get_bus_index("SFX"),!sfxEnable)
+	owner.get_node("CanvasLayer/Menu/Settings/VBoxContainer/SFX/HSlider").editable = sfxEnable
 
-
-
+func buttonPressed():
+	stream = sfx[1]
+	play()
