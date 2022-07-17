@@ -8,6 +8,7 @@ extends KinematicBody2D
 
 var paused = false
 var playing = false
+var dead = false
 
 export var speed := 10
 export (PackedScene) var bullet
@@ -19,6 +20,7 @@ var score = 0
 
 var reload = false
 var inv = false
+var knockback : Vector2
 
 func shoot():
 	if bulletCount >= 1 and playing:
@@ -40,15 +42,20 @@ func _process(delta: float) -> void:
 		$Middle.look_at(get_global_mouse_position())
 		var input = Vector2(Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left"),Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up"))
 		movement = movement.linear_interpolate(input * speed, delta * 15)
-		move_and_slide(movement)
+		print(knockback)
+		move_and_slide(movement + knockback)
+		knockback = lerp(knockback, Vector2.ZERO, 0.1)
 
-func knockback():
-	move_and_slide(-movement * 10)
+func knockback(damagePos):
+	var knockbackDir = (global_position - damagePos).normalized()
+	knockback = knockbackDir * 250
 	inv = true
 	yield(get_tree().create_timer(.5), "timeout")
 	inv = false
 
 func dead():
+	owner.get_node('Game').visible = false
+	dead = true
 	for i in owner.get_node('Bullets').get_children():
 		i.queue_free()
 	playing = false
@@ -57,6 +64,7 @@ func dead():
 
 func _on_Play_pressed() -> void:
 	playing = true
+	dead = false
 	owner.get_node('Spawner').restart()
 	score = 0
 	health = 10
@@ -74,8 +82,11 @@ func _on_Settings_pressed() -> void:
 
 func _on_Back_pressed() -> void:
 	owner.get_node('Menu/Settings').visible = false
-	if paused == false:
-		owner.get_node('Menu/Main').visible = true
+	if playing == false:
+		if not dead:
+			owner.get_node('Menu/Main').visible = true
+		else:
+			owner.get_node('Menu/Dead').visible = true
 	else:
 		owner.get_node('Menu/Pause').visible = true
 

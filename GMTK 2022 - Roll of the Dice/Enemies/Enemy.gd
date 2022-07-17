@@ -103,14 +103,15 @@ func _process(delta: float) -> void:
 
 func _on_Area2D_body_entered(body: Node) -> void:
 	if body is KinematicBody2D and body.is_in_group('player') and not body.inv:
-		body.health -= 1
+		if body.inv == false:
+			body.health -= 1
 		health -= 1
 		if body.health <= 0:
 			body.dead()
-		body.knockback()
+		body.knockback(global_position)
 
 func _on_Timer_timeout() -> void:
-	if enemy == 4:
+	if enemy == 4 and get_tree().root.get_node("World/Player").playing:
 		var b = bullet[0].instance()
 		b.enemyBullet = true
 		get_tree().root.get_node('World').add_child(b)

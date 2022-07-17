@@ -24,10 +24,11 @@ func _process(delta: float) -> void:
 				queue_free()
 		else:
 			if (collide is KinematicBody2D and collide.is_in_group('player')):
-				collide.health -= 1
+				if collide.inv == false:
+					collide.health -= 1
+				collide.knockback(global_position)
 				if collide.health <= 0:
 					collide.dead()
-					queue_free()
 				queue_free()
 
 func _on_VisibilityNotifier2D_screen_exited() -> void:

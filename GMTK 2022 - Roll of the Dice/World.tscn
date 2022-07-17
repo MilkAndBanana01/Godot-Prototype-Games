@@ -136,6 +136,7 @@ __meta__ = {
 }
 
 [node name="Main" type="Control" parent="Menu"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -325,7 +326,6 @@ __meta__ = {
 
 [node name="Settings" type="Control" parent="Menu"]
 pause_mode = 2
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -364,13 +364,13 @@ __meta__ = {
 pause_mode = 2
 margin_top = 51.0
 margin_right = 510.0
-margin_bottom = 139.0
+margin_bottom = 106.0
 size_flags_vertical = 3
 
 [node name="Play" type="Button" parent="Menu/Settings/VBoxContainer/Music"]
 pause_mode = 2
 margin_right = 179.0
-margin_bottom = 88.0
+margin_bottom = 55.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.55
 theme = ExtResource( 6 )
@@ -382,24 +382,24 @@ __meta__ = {
 [node name="HSlider" type="HSlider" parent="Menu/Settings/VBoxContainer/Music"]
 pause_mode = 2
 margin_left = 183.0
-margin_top = 36.0
+margin_top = 25.0
 margin_right = 510.0
-margin_bottom = 52.0
+margin_bottom = 29.0
 size_flags_horizontal = 3
 size_flags_vertical = 4
 theme = ExtResource( 6 )
 
 [node name="SFX" type="HBoxContainer" parent="Menu/Settings/VBoxContainer"]
 pause_mode = 2
-margin_top = 152.0
+margin_top = 119.0
 margin_right = 510.0
-margin_bottom = 241.0
+margin_bottom = 175.0
 size_flags_vertical = 3
 
 [node name="Play" type="Button" parent="Menu/Settings/VBoxContainer/SFX"]
 pause_mode = 2
 margin_right = 179.0
-margin_bottom = 89.0
+margin_bottom = 56.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.55
 theme = ExtResource( 6 )
@@ -411,14 +411,25 @@ __meta__ = {
 [node name="HSlider" type="HSlider" parent="Menu/Settings/VBoxContainer/SFX"]
 pause_mode = 2
 margin_left = 183.0
-margin_top = 36.0
+margin_top = 26.0
 margin_right = 510.0
-margin_bottom = 52.0
+margin_bottom = 30.0
 size_flags_horizontal = 3
 size_flags_vertical = 4
 theme = ExtResource( 6 )
 
 [node name="Play" type="CheckBox" parent="Menu/Settings/VBoxContainer"]
+pause_mode = 2
+margin_top = 188.0
+margin_right = 510.0
+margin_bottom = 241.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.55
+theme = ExtResource( 6 )
+text = "Particles"
+align = 1
+
+[node name="Play2" type="Button" parent="Menu/Settings/VBoxContainer"]
 pause_mode = 2
 margin_top = 254.0
 margin_right = 510.0
@@ -426,8 +437,7 @@ margin_bottom = 307.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.55
 theme = ExtResource( 6 )
-text = "Particles"
-align = 1
+text = "Clear Highscore"
 
 [node name="Back" type="Button" parent="Menu/Settings/VBoxContainer"]
 pause_mode = 2

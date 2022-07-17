@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=8 format=2]
+[gd_resource type="Theme" load_steps=9 format=2]
 
 [ext_resource path="res://UI/Font.tres" type="DynamicFont" id=1]
 [ext_resource path="res://UI/Mister Pixel Regular.otf" type="DynamicFontData" id=2]
@@ -17,6 +17,8 @@ border_color = Color( 1, 1, 1, 1 )
 expand_margin_top = 2.0
 shadow_color = Color( 0, 0, 0, 0.207843 )
 shadow_size = 19
+
+[sub_resource type="ProxyTexture" id=7]
 
 [sub_resource type="ProxyTexture" id=3]
 
@@ -38,6 +40,8 @@ Button/styles/focus = null
 Button/styles/hover = null
 Button/styles/normal = SubResource( 2 )
 Button/styles/pressed = null
+HBoxContainer/constants/separation = 12
+HSlider/icons/grabber = SubResource( 7 )
 HSlider/icons/grabber_disabled = SubResource( 3 )
 HSlider/icons/grabber_highlight = SubResource( 3 )
 HSlider/icons/tick = SubResource( 3 )
@@ -45,4 +49,8 @@ HSlider/styles/grabber_area = SubResource( 4 )
 HSlider/styles/grabber_area_highlight = null
 HSlider/styles/slider = SubResource( 6 )
 Label/fonts/font = ExtResource( 1 )
+MarginContainer/constants/margin_bottom = 25
+MarginContainer/constants/margin_left = 25
+MarginContainer/constants/margin_right = 25
+MarginContainer/constants/margin_top = 25
 VBoxContainer/constants/separation = 13
