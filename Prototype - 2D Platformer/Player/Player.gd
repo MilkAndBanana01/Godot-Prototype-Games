@@ -18,6 +18,7 @@ var slow := false
 
 onready var pause = $CanvasLayer/Pause
 var tilemap
+onready var shotgunParticles = preload("res://Player/Particles/shotgun particle.tscn")
 onready var jumppad = preload("res://Tilemap/Instances/Jump.tscn")
 var world
 var level = 1
@@ -117,6 +118,9 @@ func _physics_process(delta: float) -> void:
 				movement.x = -movement.x
 
 	if (Input.is_action_just_pressed("ui_accept") or Input.is_action_just_pressed("ui_up")) and jumpCount < jumpLimit and not spawned:
+		var shotty = shotgunParticles.instance()
+		owner.add_child(shotty)
+		shotty.global_position = global_position
 		$AnimationPlayer.play("jump")
 		snap = Vector2.ZERO
 		movement.y = -jump

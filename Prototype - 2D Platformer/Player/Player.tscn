@@ -1,10 +1,14 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
 [ext_resource path="res://Player/Pause.gd" type="Script" id=3]
 [ext_resource path="res://Player/sprite.png" type="Texture" id=4]
 [ext_resource path="res://Player/Vignette.tres" type="Material" id=5]
+[ext_resource path="res://Tilemap/Tiles/Zone 1/Background/1.png" type="Texture" id=6]
+[ext_resource path="res://Tilemap/Tiles/Zone 1/Background/2.png" type="Texture" id=7]
+[ext_resource path="res://Tilemap/Tiles/Zone 1/Background/3.png" type="Texture" id=8]
+[ext_resource path="res://Tilemap/Tiles/Zone 1/Background/4.png" type="Texture" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 8, 7.5 )
@@ -61,12 +65,16 @@ tracks/0/keys = {
 }
 
 [node name="Player" type="KinematicBody2D" groups=["player"]]
+position = Vector2( 23, 12 )
 z_index = 2
 collision_mask = 3
 script = ExtResource( 1 )
-gravity = 41
-speed = 650
-jump = 950
+__meta__ = {
+"_editor_description_": ""
+}
+gravity = 20
+speed = 250
+jump = 350
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
@@ -93,6 +101,7 @@ pause_mode = 2
 script = ExtResource( 3 )
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+visible = false
 modulate = Color( 1, 1, 1, 0.607843 )
 material = ExtResource( 5 )
 anchor_right = 1.0
@@ -274,5 +283,39 @@ playback_speed = 5.0
 anims/RESET = SubResource( 3 )
 anims/jump = SubResource( 4 )
 anims/side = SubResource( 5 )
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+scroll_ignore_camera_zoom = true
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.1, 0.1 )
+motion_mirroring = Vector2( 1024, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2( 508.222, 0 )
+texture = ExtResource( 6 )
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.2, 0.2 )
+motion_mirroring = Vector2( 1024, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer4"]
+position = Vector2( 508.222, 0 )
+texture = ExtResource( 7 )
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.5, 0.5 )
+motion_mirroring = Vector2( 1024, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer2"]
+position = Vector2( 508.222, 0 )
+texture = ExtResource( 8 )
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2( 1024, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer3"]
+position = Vector2( 508.222, 0 )
+texture = ExtResource( 9 )
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
