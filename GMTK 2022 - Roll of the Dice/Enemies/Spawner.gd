@@ -7,7 +7,6 @@ var mobSpawn = 3
 var spawning = false
 
 func restart():
-	$Timer.start()
 	for i in owner.get_node('Enemies').get_children():
 		i.queue_free()
 	wave = 1

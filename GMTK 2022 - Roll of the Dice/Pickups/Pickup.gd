@@ -4,7 +4,9 @@ func _on_Ammo_body_entered(body: Node) -> void:
 	if body.is_in_group('player'):
 		if is_in_group('ammo'):
 			get_tree().root.get_node('World/Player').bulletCount += 100
+			get_tree().root.get_node('World/SFX').buttonPressed()
 			queue_free()
 		if is_in_group('health'):
 			get_tree().root.get_node('World/Player').health += 1
+			get_tree().root.get_node('World/SFX').buttonPressed()
 			queue_free()

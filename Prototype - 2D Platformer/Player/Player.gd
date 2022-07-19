@@ -30,21 +30,21 @@ func _ready() -> void:
 	position = spawn.position
 	direction = Vector2.RIGHT
 	jumpCount = jumpLimit
-#	tilemap = world.get_node("tilemap")
-#	var tiles = tilemap.get_used_cells_by_id(4)
-#	for i in tiles:
-#		var t = jumppad.instance()
-#		world.call_deferred("add_child",t)
-#		yield(get_tree(),"idle_frame")
-#		t.global_position = i * tilemap.cell_size.x
-#		tilemap.set_cellv(i, -1)
-#		tilemap.update_dirty_quadrants()
+	tilemap = world.get_node("tilemap")
+	var tiles = tilemap.get_used_cells_by_id(4)
+	for i in tiles:
+		var t = jumppad.instance()
+		world.call_deferred("add_child",t)
+		yield(get_tree(),"idle_frame")
+		t.global_position = i * tilemap.cell_size.x
+		tilemap.set_cellv(i, -1)
+		tilemap.update_dirty_quadrants()
 
 func respawn():
+	jumpCount = jumpLimit
 	$Sprite.flip_h = false
 	movement = Vector2.ZERO
 	direction = Vector2.RIGHT
-	jumpCount = jumpLimit
 	spawned = true
 	spawn = get_parent().get_node("spawn").position
 	position = spawn
@@ -57,23 +57,19 @@ func win():
 	respawn()
 
 func _physics_process(delta: float) -> void:
-	
-	
-	
 	for i in get_slide_count():
 		var collision = get_slide_collision(i)
 		if collision.collider is TileMap:
 			var tilePos = collision.collider.world_to_map(position)
 			tilePos -= collision.normal
 			var tileId = collision.collider.get_cellv(tilePos)
-			print(tileId)
 			if tileId == 0:
 				slippery = false
 				slow = false
+			if tileId == 2:
+				respawn()
 			if tileId == 3:
 				win()
-			if tileId == 3:
-				respawn()
 			if tileId == 5:
 				slippery = true
 			if tileId == 6:
@@ -91,9 +87,10 @@ func _physics_process(delta: float) -> void:
 		snap = -get_floor_normal()
 		if spawned:
 			spawned = false
+		else:
+			jumpCount = 0
 # if jump pad breaks, remove this line
 		movement.y = 0
-		jumpCount = 0
 		if (Input.is_action_pressed("ui_left") or Input.is_action_pressed("ui_right")) and not slow:
 			if not spawned:
 				movement.x = lerp(movement.x,direction.x * speed,15 * delta)
@@ -108,11 +105,11 @@ func _physics_process(delta: float) -> void:
 			var tilemap = raycast.get_collider()
 			var point = raycast.get_collision_point() + direction
 			var tileId = tilemap.get_cellv(tilemap.world_to_map(point))
-			if tileId == 4:
-				win()
 			if tileId == 3:
-				respawn()
+				win()
 			if tileId == 2:
+				respawn()
+			if tileId == 0:
 				$Sprite.flip_h = !$Sprite.flip_h
 				$AnimationPlayer.play("side")
 				raycast.set_cast_to(Vector2(-raycast.cast_to.x,0))

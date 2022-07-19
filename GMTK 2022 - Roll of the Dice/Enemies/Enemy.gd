@@ -69,7 +69,22 @@ func spawnMonster(wave):
 func _process(delta: float) -> void:
 	if get_tree().root.get_node("World/Player").playing:
 		direction = (get_tree().root.get_node("World/Player").global_position - global_position).normalized()
-		
+
+		if get_node("Sprites/" + str(enemy)) is AnimatedSprite:
+			var mouseAngle = rad2deg(get_angle_to(get_tree().root.get_node("World/Player").global_position))
+			if mouseAngle < 90 and mouseAngle > -90:
+				get_node("Sprites/" + str(enemy)).flip_h = true
+			else:
+				get_node("Sprites/" + str(enemy)).flip_h = false
+			if mouseAngle < 0:
+				get_node("Sprites/" + str(enemy)).animation = 'back'
+				if (mouseAngle > -180 and mouseAngle < -145) or (mouseAngle > -45 and mouseAngle < 0):
+					get_node("Sprites/" + str(enemy)).animation = '45back'
+			else:
+				get_node("Sprites/" + str(enemy)).animation = 'front'
+				if (mouseAngle < 180 and mouseAngle > 145) or (mouseAngle < 45 and mouseAngle > 0):
+					get_node("Sprites/" + str(enemy)).animation = '45'
+
 		if enemy != 4:
 			move_and_slide(direction * speed)
 		else:

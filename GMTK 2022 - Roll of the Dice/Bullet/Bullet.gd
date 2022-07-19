@@ -17,12 +17,12 @@ func _process(delta: float) -> void:
 			if (collide is KinematicBody2D and collide.is_in_group('enemy')):
 				get_tree().root.get_node('World/Player').score += collide.enemy * collide.currentWave * 10 * get_tree().root.get_node('World/Player').multiplier
 				collide.health -= 1
-				collide.hit()
+				get_tree().root.get_node('World/SFX').hit()
 				queue_free()
 			elif (collide is Area2D and collide.is_in_group('enemy')):
 				get_tree().root.get_node('World/Player').score += collide.get_parent().enemy * collide.get_parent().currentWave * 10 * get_tree().root.get_node('World/Player').multiplier
 				collide.get_parent().health -= 1
-				collide.get_parent().hit()
+				get_tree().root.get_node('World/SFX').hit()
 				queue_free()
 		else:
 			if (collide is KinematicBody2D and collide.is_in_group('player')):

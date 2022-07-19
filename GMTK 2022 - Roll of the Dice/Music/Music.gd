@@ -25,3 +25,7 @@ func _on_sfx_pressed() -> void:
 func buttonPressed():
 	stream = sfx[1]
 	play()
+
+func hit():
+	stream = sfx[2]
+	play()

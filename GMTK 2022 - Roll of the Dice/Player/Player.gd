@@ -1,4 +1,3 @@
-#- Implement highscore feature
 #- Add credits
 
 extends KinematicBody2D
@@ -62,6 +61,21 @@ func _process(delta: float) -> void:
 		owner.get_node('CanvasLayer/Game/Revive').visible = revive
 		owner.get_node('CanvasLayer/Game/Waves').text = "Wave " + str(owner.get_node('Spawner').wave)
 		$Middle.look_at(get_global_mouse_position())
+
+		var mouseAngle = rad2deg(get_angle_to(get_global_mouse_position()))
+		if mouseAngle < 90 and mouseAngle > -90:
+			$Sprite.flip_h = true
+		else:
+			$Sprite.flip_h = false
+		if mouseAngle < 0:
+			$Sprite.animation = 'back'
+			if (mouseAngle > -180 and mouseAngle < -145) or (mouseAngle > -45 and mouseAngle < 0):
+				$Sprite.animation = '45back'
+		else:
+			$Sprite.animation = 'front'
+			if (mouseAngle < 180 and mouseAngle > 145) or (mouseAngle < 45 and mouseAngle > 0):
+				$Sprite.animation = '45'
+
 		if not damaged:
 			var input = Vector2(Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left"),Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up"))
 			movement = movement.linear_interpolate(input * speed, delta * 15)
@@ -80,6 +94,7 @@ func knockback(damagePos,mult):
 
 func damaged():
 	damaged = true
+	owner.get_node('SFX').hit()
 	yield(get_tree().create_timer(.1), "timeout")
 	damaged = false
 
@@ -92,6 +107,7 @@ func dead():
 		playing = false
 		owner.get_node('CanvasLayer/Menu').visible = true
 		owner.get_node("CanvasLayer/Menu/Dead").visible = true
+		owner.get_node('Save').saveGame(score)
 	else:
 		health = healthLimit
 		revive = false
@@ -114,11 +130,14 @@ func _on_Play_pressed() -> void:
 		i.queue_free()
 	for i in owner.get_node('Pickups').get_children():
 		i.queue_free()
+	owner.get_node('Spawner').restart()
 	owner.get_node('Spawner').spawning = true
 	owner.add_child(cards.instance())
+	owner.get_node("CanvasLayer/Menu/Dead/VBoxContainer/new highscore").visible = false
 	owner.get_node('Pickup Spawner').spawning = true
 	owner.get_node('CanvasLayer/Menu').visible = false
 	owner.get_node('CanvasLayer/Menu/Main').visible = false
+	owner.get_node('CanvasLayer/Menu/Dead').visible = false
 	owner.get_node('CanvasLayer/Game').visible = true
 
 func _on_Settings_pressed() -> void:
@@ -128,6 +147,7 @@ func _on_Settings_pressed() -> void:
 	owner.get_node('CanvasLayer/Menu/Pause').visible = false
 
 func _on_Back_pressed() -> void:
+	owner.get_node('CanvasLayer/Menu/Credits').visible = false
 	owner.get_node('CanvasLayer/Menu/Settings').visible = false
 	if playing == false:
 		if not dead:
@@ -143,3 +163,8 @@ func _on_Timer_timeout() -> void:
 
 func _on_AudioStreamPlayer_finished() -> void:
 	$AudioStreamPlayer.stop()
+
+func _on_Credits_pressed() -> void:
+	owner.get_node('CanvasLayer/Menu/Main').visible = false
+	owner.get_node('CanvasLayer/Menu/Dead').visible = false
+	owner.get_node('CanvasLayer/Menu/Credits').visible = true
