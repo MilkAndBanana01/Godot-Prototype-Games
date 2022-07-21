@@ -94,7 +94,7 @@ func _physics_process(delta: float) -> void:
 		movement.y = 0
 		if (Input.is_action_pressed("ui_left") or Input.is_action_pressed("ui_right")) and not slow:
 			if not spawned:
-				movement.x = lerp(movement.x,direction.x * speed,15 * delta)
+				movement.x = lerp(movement.x,direction.x * speed,10 * delta)
 		else:
 			movement.x = lerp(movement.x,0,delta * (5 * int(not slippery)))
 
@@ -117,7 +117,7 @@ func _physics_process(delta: float) -> void:
 				direction.x = -direction.x
 				movement.x = -movement.x
 
-	if (Input.is_action_just_pressed("ui_accept") or Input.is_action_just_pressed("ui_up")) and jumpCount < jumpLimit and not spawned:
+	if (Input.is_action_pressed("ui_accept") or Input.is_action_pressed("ui_up")) and jumpCount < jumpLimit and not spawned:
 		var shotty = shotgunParticles.instance()
 		owner.add_child(shotty)
 		shotty.global_position = global_position

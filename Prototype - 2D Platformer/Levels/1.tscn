@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Tilemap/Tiles/Zone 1/Zone 1.tres" type="TileSet" id=1]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Tilemap/Tiles/Zone 1/Decoration/deco.png" type="Texture" id=3]
+[ext_resource path="res://Tilemap/Tiles/Zone 1/Decoration/more deco zone 1.png" type="Texture" id=4]
 [ext_resource path="res://Tilemap/Tiles/Zone 1/Decoration/chain.png" type="Texture" id=5]
 [ext_resource path="res://Tilemap/Tiles/Zone 1/Decoration/cobwebs.png" type="Texture" id=6]
 [ext_resource path="res://Tilemap/Tiles/Zone 1/Foreground/foreground zone 1/foreground zone 1/tileset_foreground zone 1.tres" type="TileSet" id=10]
@@ -95,6 +96,50 @@
 4/shape_one_way_margin = 0.0
 4/shapes = [  ]
 4/z_index = -1
+5/name = "more deco zone 1.png 5"
+5/texture = ExtResource( 4 )
+5/tex_offset = Vector2( 0, 0 )
+5/modulate = Color( 1, 1, 1, 1 )
+5/region = Rect2( 0, 0, 64, 48 )
+5/tile_mode = 2
+5/autotile/icon_coordinate = Vector2( 0, 0 )
+5/autotile/tile_size = Vector2( 16, 16 )
+5/autotile/spacing = 0
+5/autotile/occluder_map = [  ]
+5/autotile/navpoly_map = [  ]
+5/autotile/priority_map = [  ]
+5/autotile/z_index_map = [  ]
+5/occluder_offset = Vector2( 0, 0 )
+5/navigation_offset = Vector2( 0, 0 )
+5/shape_offset = Vector2( 0, 0 )
+5/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+5/shape_one_way = false
+5/shape_one_way_margin = 0.0
+5/shapes = [  ]
+5/z_index = 0
+6/name = "more deco zone 1.png 6"
+6/texture = ExtResource( 4 )
+6/tex_offset = Vector2( 0, 0 )
+6/modulate = Color( 1, 1, 1, 1 )
+6/region = Rect2( 0, 0, 64, 32 )
+6/tile_mode = 1
+6/autotile/bitmask_mode = 1
+6/autotile/bitmask_flags = [ Vector2( 0, 1 ), 18, Vector2( 3, 0 ), 146 ]
+6/autotile/icon_coordinate = Vector2( 3, 0 )
+6/autotile/tile_size = Vector2( 16, 16 )
+6/autotile/spacing = 0
+6/autotile/occluder_map = [  ]
+6/autotile/navpoly_map = [  ]
+6/autotile/priority_map = [  ]
+6/autotile/z_index_map = [  ]
+6/occluder_offset = Vector2( 0, 0 )
+6/navigation_offset = Vector2( 0, 0 )
+6/shape_offset = Vector2( 0, 0 )
+6/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+6/shape_one_way = false
+6/shape_one_way_margin = 0.0
+6/shapes = [  ]
+6/z_index = 0
 
 [sub_resource type="Curve" id=2]
 max_value = 0.83

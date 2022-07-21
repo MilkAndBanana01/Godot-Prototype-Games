@@ -5,13 +5,14 @@
 [ext_resource path="res://Player/Pause.gd" type="Script" id=3]
 [ext_resource path="res://Player/sprite.png" type="Texture" id=4]
 [ext_resource path="res://Player/Vignette.tres" type="Material" id=5]
-[ext_resource path="res://Tilemap/Tiles/Zone 1/Background/1.png" type="Texture" id=6]
-[ext_resource path="res://Tilemap/Tiles/Zone 1/Background/2.png" type="Texture" id=7]
-[ext_resource path="res://Tilemap/Tiles/Zone 1/Background/3.png" type="Texture" id=8]
-[ext_resource path="res://Tilemap/Tiles/Zone 1/Background/4.png" type="Texture" id=9]
+[ext_resource path="res://Tilemap/Tiles/Zone 1/Background/Group 3.png" type="Texture" id=6]
+[ext_resource path="res://Tilemap/Tiles/Zone 1/Background/Group 4.png" type="Texture" id=7]
+[ext_resource path="res://Tilemap/Tiles/Zone 1/Background/Layer 14 copy 3.png" type="Texture" id=8]
+[ext_resource path="res://Tilemap/Tiles/Zone 1/Background/Group 2.png" type="Texture" id=9]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 8, 7.5 )
+[sub_resource type="CapsuleShape2D" id=6]
+radius = 8.0
+height = 1.0
 
 [sub_resource type="Theme" id=2]
 MarginContainer/constants/margin_bottom = 20
@@ -80,7 +81,7 @@ jump = 350
 current = true
 zoom = Vector2( 0.4, 0.4 )
 smoothing_enabled = true
-smoothing_speed = 1.861
+smoothing_speed = 10.0
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.25
@@ -91,7 +92,7 @@ cast_to = Vector2( 9.548, 0 )
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -0.5 )
-shape = SubResource( 1 )
+shape = SubResource( 6 )
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 4 )
@@ -293,7 +294,7 @@ motion_mirroring = Vector2( 1024, 600 )
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
 position = Vector2( 512, 300 )
-texture = ExtResource( 6 )
+texture = ExtResource( 8 )
 
 [node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2( 0.2, 0.2 )
@@ -301,7 +302,7 @@ motion_mirroring = Vector2( 1024, 600 )
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer4"]
 position = Vector2( 512, 300 )
-texture = ExtResource( 7 )
+texture = ExtResource( 9 )
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2( 0.5, 0.5 )
@@ -309,13 +310,13 @@ motion_mirroring = Vector2( 1024, 600 )
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer2"]
 position = Vector2( 512, 300 )
-texture = ExtResource( 8 )
+texture = ExtResource( 6 )
 
 [node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_mirroring = Vector2( 1024, 600 )
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer3"]
 position = Vector2( 512, 300 )
-texture = ExtResource( 9 )
+texture = ExtResource( 7 )
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
