@@ -11,7 +11,7 @@
 [ext_resource path="res://Tilemap/Tiles/Zone 1/Background/Group 2.png" type="Texture" id=9]
 
 [sub_resource type="CapsuleShape2D" id=6]
-radius = 8.0
+radius = 7.0
 height = 1.0
 
 [sub_resource type="Theme" id=2]
@@ -91,7 +91,7 @@ enabled = true
 cast_to = Vector2( 9.548, 0 )
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -0.5 )
+position = Vector2( 0, 0.5 )
 shape = SubResource( 6 )
 
 [node name="Sprite" type="Sprite" parent="."]

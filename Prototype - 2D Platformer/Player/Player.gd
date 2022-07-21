@@ -42,14 +42,15 @@ func _ready() -> void:
 		tilemap.update_dirty_quadrants()
 
 func respawn():
+	spawned = true
+	direction = Vector2.RIGHT
 	jumpCount = jumpLimit
 	$Sprite.flip_h = false
 	movement = Vector2.ZERO
-	direction = Vector2.RIGHT
-	spawned = true
 	spawn = get_parent().get_node("spawn").position
 	position = spawn
 	raycast.set_cast_to(Vector2(abs(raycast.cast_to.x),0))
+
 func win():
 	level = int(get_tree().root.get_child(0).name)
 	level += 1
@@ -101,7 +102,7 @@ func _physics_process(delta: float) -> void:
 	if is_on_ceiling():
 		movement.y += gravity
 
-	if raycast.is_colliding():
+	if raycast.is_colliding() and not spawned:
 		if raycast.get_collider() is TileMap:
 			var tilemap = raycast.get_collider()
 			var point = raycast.get_collision_point() + direction
